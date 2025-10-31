@@ -1,11 +1,14 @@
 :- module(http, [download_file/2, download_file_http_get/2]).
 
+% :- use_module(library(http/http_open), [http:http_open/3]).
+% :- use_module(library(http/http_client)).
+:- use_module(library(http/http_open), [http:http_open/3]).
 :- use_module(library(http/http_client)).
 % :- use_module(library(stream)).
 
 download_file(URL, LocalFile) :-
   setup_call_cleanup(
-    http_open(URL, In, []),
+    http_open:http_open(URL, In, []),
     setup_call_cleanup(
       open(LocalFile, write, Out),
       copy_stream_data(In, Out),

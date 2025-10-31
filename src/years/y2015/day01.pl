@@ -9,12 +9,14 @@ part1([')'|T], N, Output) :-
   M is N - 1, part1(T, M, Output).
 part1(Input, Output) :- part1(Input, 0, Output).
 
-part2(_, -1, Index, Index).
+part2(_, -1, Index, Index) :- !.
 part2(['('|T], Floor, Index, Output) :-
+  !,
   NextFloor is Floor + 1,
   NextIndex is Index + 1,
   part2(T, NextFloor, NextIndex, Output).
 part2([')'|T], Floor, Index, Output) :-
+  !,
   NextFloor is Floor - 1,
   NextIndex is Index + 1,
   part2(T, NextFloor, NextIndex, Output).

@@ -1,7 +1,7 @@
 .PHONY: test run clean
 
 test:
-	@swipl -s tests/years/y2015/day01.pl -g run_tests,halt
+	@swipl -g run_all_tests -f test_runner.pl
 
 run:
 	@swipl -s src/main.pl -g run,halt
