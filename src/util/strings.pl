@@ -17,3 +17,10 @@ tokenize_safe(Input, Chars) :-
       fail
     )
   ).
+
+parse_int(I, O) :-
+  (
+    string(I) -> number_string(O, I)
+  ; atom(I) -> string_chars(I, C), number_string(O, C)
+  ; is_list(I) -> number_chars(O, I)
+  ).
