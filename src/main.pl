@@ -55,7 +55,6 @@ clean_input_dir :-
 run(Year, Day, SessionId) :-
   write('Starting application...'), nl,
   read_input_for_day(Year, Day, SessionId, Input),
-  % consult_file(Year, Day),
 
   atomic_list_concat(['./src/years/y', Year, '/day', Day, '.pl'], FilePath),
   load_files([FilePath], [import([parse/2, part1/2, part2/2])]),
@@ -63,6 +62,6 @@ run(Year, Day, SessionId) :-
   tag(Year, Day, Tag),
   parse(Tag, Input, ParsedInput),
   part1(Tag, ParsedInput, Part1),
-  part2(Tag, ParsedInput, Part2),
   format('~w, Day ~w, Part 1: ~w~n', [Year, Day, Part1]),
+  part2(Tag, ParsedInput, Part2),
   format('~w, Day ~w, Part 2: ~w~n', [Year, Day, Part2]).
