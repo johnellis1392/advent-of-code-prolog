@@ -1,15 +1,21 @@
 :- module(main, [run/3, clean_input_dir/0]).
 
+:- use_module(library(http/http_client)).
+:- use_module(library(filesex), [ensure_directory/1]).
 :- use_module('util/http').
 :- use_module('util/strings').
-:- use_module(library(http/http_client)).
 :- use_module('aoc').
+:- use_module('util/set').
 
 
 file_path_for(Year, Day, Path) :-
   valid_year(Year), valid_day(Day), !,
   atomic_list_concat(['day', Day, '.input.txt'], FileName),
   atomic_list_concat(['input', Year, FileName], '/', Path).
+
+dir_path_for(Year, Path) :-
+  valid_year(Year),
+  atom_concat('./input/', Year, Path).
 
 input_url_for(Year, Day, URL) :-
   format('Year = ~w, Day = ~w~n', [Year, Day]),
@@ -21,6 +27,8 @@ input_url_for(Year, Day, URL) :-
 download_input_for_day(Year, Day, SessionId) :-
   input_url_for(Year, Day, URL),
   file_path_for(Year, Day, FilePath),
+  dir_path_for(Year, YearDir),
+  ensure_directory(YearDir),
   format('URL=~w, FilePath=~w~n', [URL, FilePath]),
   string_concat('session=', SessionId, Cookie),
   format('Cookie: ~w~n', [Cookie]),
@@ -32,11 +40,8 @@ download_input_for_day(Year, Day, SessionId) :-
   close(Stream),
   format('Downloaded ~w to ~w~n', [URL, FilePath]).
 
-ensure_file_exists(_, _, _, Path) :-
-  exists_file(Path).
 ensure_file_exists(Year, Day, SessionId, Path) :-
-  \+ exists_file(Path),
-  download_input_for_day(Year, Day, SessionId).
+  exists_file(Path) ; download_input_for_day(Year, Day, SessionId).
 
 read_input_for_day(Year, Day, SessionId, Input) :-
   file_path_for(Year, Day, Path),

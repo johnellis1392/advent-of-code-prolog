@@ -5,7 +5,6 @@
 
 :- set_prolog_flag(double_quotes, chars).
 
-
 eol --> "\n", !.
 eol --> "\r\n", !.
 eol --> eos.

@@ -22,7 +22,7 @@ run_part1(I, O) :-
 
 test('part1("2x3x4") = 58') :- run_part1("2x3x4", 58).
 test('part1("1x1x10") = 43') :- run_part1("1x1x10", 43).
-test('part1("2x3x4\n1x1x10") = 95') :- run_part1("2x3x4\n1x1x10", 101).
+test('part1("2x3x4\n1x1x10") = 101') :- run_part1("2x3x4\n1x1x10", 101).
 
 test('ribbon_length([2, 3, 4]) = 10') :- ribbon_length([2, 3, 4], 10).
 test('ribbon_length([1, 1, 10]) = 4') :- ribbon_length([1, 1, 10], 4).

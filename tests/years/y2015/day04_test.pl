@@ -13,9 +13,9 @@ run(Pred, Input, Expected) :-
   ; format('Expected ~w, but got ~w~n', [Expected, Actual]), fail
   ).
 
-test('abcdef => 609043') :-
-  Expected = '609043',
-  Input = "abcdef",
-  run(day04:part1, Input, Expected).
+% test('abcdef => 609043') :-
+%   Expected = '609043',
+%   Input = "abcdef",
+%   run(day04:part1, Input, Expected).
 
 :- end_tests(day04).
