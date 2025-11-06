@@ -21,7 +21,7 @@ grid(point{x:0, y:2}, '7').
 grid(point{x:1, y:2}, '8').
 grid(point{x:2, y:2}, '9').
 
-parser([], _) --> [].
+parser([C], P) --> [], { grid(P, C) }.
 parser([C|S], P) --> "\n", { grid(P, C) }, parser(S, P).
 parser(S, P) --> "U", { Y #= max(P.y - 1, 0) }, parser(S, point{x:P.x, y:Y}).
 parser(S, P) --> "D", { Y #= min(P.y + 1, 2) }, parser(S, point{x:P.x, y:Y}).
@@ -70,7 +70,7 @@ grid_move(P, right, point{x:X,y:P.y}) :-
 
 grid_move(P, _, P).
 
-parser2([], _) --> [].
+parser2([C], P) --> [], { grid2(P, C) }.
 parser2([C|S], P) --> "\n", { grid2(P, C) }, parser2(S, P).
 parser2(S, P0) --> "U", { grid_move(P0, up, P) }, parser2(S, P).
 parser2(S, P0) --> "D", { grid_move(P0, down, P) }, parser2(S, P).
