@@ -5,6 +5,6 @@ run(Pred, Tag, I, E) :-
   aoc:parse(Tag, I, P),
   call(Pred, Tag, P, A),
   (
-    A = E, !
+    \+ var(A), A = E, !
   ; format('Expected ~w, but got ~w~n', [E, A]), fail
   ).

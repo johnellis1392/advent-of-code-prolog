@@ -8,7 +8,7 @@
 :- use_module(library(dcg/basics), [eos/2, integer/3]).
 :- use_module('../../aoc').
 :- use_module('../../util/point').
-:- use_module('../../util/set', [add_all/3, insert/3, remove/3]).
+:- use_module('../../util/set').
 :- set_prolog_flag(double_quotes, chars).
 
 eol --> "\n", !.
@@ -60,14 +60,18 @@ overlap(_, [], _) :- fail.
 overlap(V, [P|_], P) :- _ = V.get(P.key()).
 overlap(V, [_|Ps], R) :- overlap(V, Ps, R).
 
+add_all_(S, [], S).
+add_all_(S, [P|Ps], S2) :-
+  add_all_(S.insert(P.key()), Ps, S2).
+
 part2_([inst(T, N)|Insts], D, P, V, R) :-
   turn(T, D, D2),
   P2 = P.move(D2, N),
   Path = P.range_to(P2),
   (
     overlap(V, Path, R)
-  ; V2 = V.add_all(Path),
-    V3 = V2.remove(P2),
+  ; add_all_(V, Path, V2),
+    V3 = V2.remove(P2.key()),
     part2_(Insts, D2, P2, V3, R)
   ).
 
