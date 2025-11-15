@@ -4,17 +4,16 @@
 
 :- set_prolog_flag(double_quotes, chars).
 
-:- begin_tests(day03).
+:- begin_tests('2015/day03', [setup(nb_setval(tag, '2015/day03')), cleanup(nb_delete(tag))]).
 
-test('parse("^>v<") => [^, >, v, <]') :-
-  day03:parse('2015/day03', "^>v<", ['^', '>', 'v', '<']).
+test(parse, [O == ['^', '>', 'v', '<']]) :- run_parse("^>v<", O).
 
-test('part1: > => 2') :- run(aoc:part1, '2015/day03', ">", 2).
-test('part1: ^>v< => 4') :- run(aoc:part1, '2015/day03', "^>v<", 4).
-test('part1: ^v^v^v^v^v => 2') :- run(aoc:part1, '2015/day03', "^v^v^v^v^v", 2).
+test(part1, [O =:= 2]) :- run_part1('>', O).
+test(part1, [O =:= 4]) :- run_part1('^>v<', O).
+test(part1, [O =:= 2]) :- run_part1('^v^v^v^v^v', O).
 
-test('part2: ^v => 3') :- run(aoc:part2,  '2015/day03', "^v", 3).
-test('part2: ^>v< => 3') :- run(aoc:part2,  '2015/day03', "^>v<", 3).
-test('part2: ^v^v^v^v^v => 11') :- run(aoc:part2,  '2015/day03', "^v^v^v^v^v", 11).
+test(part2, [O =:= 3]) :- run_part2("^v", O).
+test(part2, [O =:= 3]) :- run_part2("^>v<", O).
+test(part2, [O =:= 11]) :- run_part2("^v^v^v^v^v", O).
 
-:- end_tests(day03).
+:- end_tests('2015/day03').

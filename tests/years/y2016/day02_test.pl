@@ -2,7 +2,7 @@
 :- use_module('../../../src/years/y2016/day02').
 :- use_module('../../test_utils').
 
-:- begin_tests('2016/day02').
+:- begin_tests('2016/day02', [setup(b_setval(tag, '2016/day02')), cleanup(nb_delete(tag))]).
 
 default_input(
 'ULL
@@ -11,12 +11,8 @@ LURDL
 UUUUD'
 ).
 
-test('part1 should return 1985') :-
-  default_input(I),
-  run(aoc:part1, '2016/day02', I, '1985').
+test(part1, [O == '1985']) :- default_input(I), run_part1(I, O).
 
-test('part2 should return 5DB3') :-
-  default_input(I),
-  run(aoc:part2, '2016/day02', I, '5DB3').
+test(part2, [O == '5DB3']) :- default_input(I), run_part2(I, O).
 
 :- end_tests('2016/day02').

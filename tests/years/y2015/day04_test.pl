@@ -3,19 +3,8 @@
 
 :- set_prolog_flag(double_quotes, chars).
 
-:- begin_tests(day04).
+:- begin_tests('2015/day04', [setup(nb_setval(tag, '2015/day04')), cleanup(nb_delete(tag))]).
 
-run(Pred, Input, Expected) :-
-  Tag = '2015/day04',
-  call(Pred, Tag, Input, Actual),
-  (
-    Expected = Actual, !
-  ; format('Expected ~w, but got ~w~n', [Expected, Actual]), fail
-  ).
+% test(part1, [O =:= 609043]) :- run_part1('abcdef', Expected).
 
-% test('abcdef => 609043') :-
-%   Expected = '609043',
-%   Input = "abcdef",
-%   run(day04:part1, Input, Expected).
-
-:- end_tests(day04).
+:- end_tests('2015/day04').

@@ -54,7 +54,7 @@ part1_([inst(Turn, N)|Insts], Dir, P, Res) :-
 
 aoc:part1('2016/day01', Input, Output) :-
   part1_(Input, north, point{x:0, y:0}, R),
-  Output = R.manhattan().
+  Output = R.manhattan(), !.
 
 overlap(_, [], _) :- fail.
 overlap(V, [P|_], P) :- _ = V.get(P.key()).
@@ -77,4 +77,4 @@ part2_([inst(T, N)|Insts], D, P, V, R) :-
 
 aoc:part2('2016/day01', Input, Output) :-
   part2_(Input, north, point{x:0, y:0}, set{}, R),
-  Output = R.manhattan().
+  Output = R.manhattan(), !.
