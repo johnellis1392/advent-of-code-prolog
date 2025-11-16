@@ -1,4 +1,4 @@
-:- module(strings, [tokenize/2, tokenize_safe/2]).
+:- module(strings, [tokenize/2, tokenize_safe/2, trim/2]).
 
 tokenize(Input, Chars) :-
   (
@@ -24,3 +24,6 @@ parse_int(I, O) :-
   ; atom(I) -> string_chars(I, C), number_string(O, C)
   ; is_list(I) -> number_chars(O, I)
   ).
+
+trim(I, O) :-
+  split_string(I, '', ' \t\r\n', [O]).
