@@ -5,9 +5,17 @@
 % :- dynamic part1/2.
 % :- dynamic part2/2.
 
+load_year_tests :-
+  expand_file_name('./tests/*/*/*.pl', TestFiles),
+  maplist(consult, TestFiles).
+
+load_util_tests :-
+  expand_file_name('./tests/util/*.pl', TestFiles),
+  maplist(consult, TestFiles).
+
 run_all_tests :-
-  expand_file_name('./tests/years/y*/*.pl', TestFiles),
-  maplist(consult, TestFiles),
+  load_year_tests,
+  load_util_tests,
   run_tests(_, [verbose(true)]),
   halt.
 
