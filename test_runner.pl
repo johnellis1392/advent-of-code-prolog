@@ -6,7 +6,7 @@
 % :- dynamic part2/2.
 
 load_year_tests :-
-  expand_file_name('./tests/*/*/*.pl', TestFiles),
+  expand_file_name('./tests/years/y*/*.pl', TestFiles),
   maplist(consult, TestFiles).
 
 load_util_tests :-

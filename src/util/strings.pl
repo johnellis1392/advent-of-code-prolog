@@ -1,4 +1,7 @@
-:- module(strings, [tokenize/2, tokenize_safe/2, trim/2]).
+:- module('util/strings', [tokenize/2, tokenize_safe/2, trim/2, lines/2, parse_int/2]).
+
+:- use_module('./dcg', [lines/3]).
+:- set_prolog_flag(double_quotes, chars).
 
 tokenize(Input, Chars) :-
   (
@@ -27,3 +30,6 @@ parse_int(I, O) :-
 
 trim(I, O) :-
   split_string(I, '', ' \t\r\n', [O]).
+
+lines(I, O) :- atom_chars(I, C), !, phrase(dcg:lines(O), C).
+lines(I, O) :- string_chars(I, C), !, phrase(dcg:lines(O), C).

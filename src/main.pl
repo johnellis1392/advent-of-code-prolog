@@ -3,7 +3,7 @@
 :- use_module(library(http/http_client)).
 :- use_module(library(filesex), [ensure_directory/1]).
 :- use_module('util/http').
-:- use_module('util/strings').
+:- use_module('util/strings', [parse_int/2]).
 :- use_module('aoc').
 :- use_module('util/set').
 
@@ -21,7 +21,7 @@ input_url_for(Year, Day, URL) :-
   format('Year = ~w, Day = ~w~n', [Year, Day]),
   valid_year(Year), valid_day(Day), !,
   Domain = 'https://adventofcode.com',
-  strings:parse_int(Day, DayInt),
+  parse_int(Day, DayInt),
   atomic_list_concat([Domain, Year, 'day', DayInt, 'input'], '/', URL).
 
 download_input_for_day(Year, Day, SessionId) :-
@@ -41,7 +41,7 @@ download_input_for_day(Year, Day, SessionId) :-
   format('Downloaded ~w to ~w~n', [URL, FilePath]).
 
 ensure_file_exists(Year, Day, SessionId, Path) :-
-  exists_file(Path) ; download_input_for_day(Year, Day, SessionId).
+  exists_file(Path), ! ; download_input_for_day(Year, Day, SessionId).
 
 read_input_for_day(Year, Day, SessionId, Input) :-
   file_path_for(Year, Day, Path),
